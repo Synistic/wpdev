@@ -4,7 +4,7 @@ export function generateDockerfile(phpVersion: PhpVersion): string {
 	return `FROM wordpress:php${phpVersion}-fpm-alpine
 
 # Install WP-CLI and dependencies
-RUN apk add --no-cache bash mysql-client less acl
+RUN apk add --no-cache bash mysql-client less
 
 # Install WP-CLI
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \\

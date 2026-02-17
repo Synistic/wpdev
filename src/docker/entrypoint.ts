@@ -33,6 +33,11 @@ export function generateEntrypoint(opts?: EntrypointOptions): string {
 	return `#!/bin/bash
 set -e
 
+# Remap www-data UID to match host user — eliminates all ACL/permission issues
+if [ -n "$HOST_UID" ] && [ "$HOST_UID" != "0" ]; then
+    sed -i "s/^www-data:x:[0-9]*:/www-data:x:\${HOST_UID}:/" /etc/passwd
+fi
+
 wait_for_mysql() {
     echo "Waiting for MySQL..."
     local max_tries=60
@@ -108,17 +113,8 @@ else
     echo "WordPress already installed."
 fi
 
-# Fix permissions
+# Fix permissions (www-data is now remapped to HOST_UID, so host user owns all files)
 chown -R www-data:www-data /var/www/html
-
-# ACL for host user (Linux/WSL only, skipped on macOS)
-if [ -n "$HOST_UID" ]; then
-    if setfacl -m u:$HOST_UID:rwx /var/www/html 2>/dev/null; then
-        echo "Setting ACL permissions for host user (UID: $HOST_UID)..."
-        setfacl -R -m u:$HOST_UID:rwx /var/www/html
-        setfacl -R -d -m u:$HOST_UID:rwx /var/www/html
-    fi
-fi
 
 exec "$@"
 `;
