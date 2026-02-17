@@ -1,0 +1,27 @@
+{
+  "name": "wpdev",
+  "version": "0.1.0",
+  "description": "Fast local WordPress development environments",
+  "type": "module",
+  "bin": "./src/cli.ts",
+  "scripts": {
+    "dev": "bun run src/cli.ts",
+    "check": "bunx biome check --apply",
+    "test": "bun test"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.4.2",
+    "@types/bun": "latest",
+    "@types/react": "^19.2.14"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "ink": "^6.7.0",
+    "pastel": "^4.0.0",
+    "react": "^19.2.4",
+    "yaml": "^2.8.2",
+    "zod": "^4.3.6"
+  }
+}
