@@ -23,10 +23,11 @@ export function generateComposeYaml(config: SiteConfig): string {
 				},
 				volumes: ["db_data:/var/lib/mysql"],
 				healthcheck: {
-					test: ["CMD", "mysqladmin", "ping", "-h", "localhost"],
+					test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"],
 					interval: "5s",
 					timeout: "5s",
-					retries: 10,
+					retries: 20,
+					start_period: "30s",
 				},
 			},
 			wordpress: {
