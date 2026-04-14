@@ -1,5 +1,3 @@
-import type { SpawnOptions } from "bun";
-
 export interface ExecResult {
 	exitCode: number;
 	stdout: string;
@@ -11,10 +9,10 @@ export async function exec(
 	cmd: string[],
 	options?: { cwd?: string; silent?: boolean },
 ): Promise<ExecResult> {
-	const spawnOpts: SpawnOptions.OptionsObject = {
+	const spawnOpts = {
 		cwd: options?.cwd,
-		stdout: "pipe",
-		stderr: "pipe",
+		stdout: "pipe" as const,
+		stderr: "pipe" as const,
 	};
 
 	const proc = Bun.spawn(cmd, spawnOpts);

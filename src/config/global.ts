@@ -9,6 +9,7 @@ import { type GlobalConfig, globalConfigSchema } from "./schema.ts";
 const defaults: GlobalConfig = {
 	sitesDir: DEFAULT_SITES_DIR,
 	defaultPhp: "8.2",
+	defaultDb: "mariadb",
 	defaultLocale: "de_DE",
 	defaultPlugins: ["all-in-one-wp-migration"],
 };

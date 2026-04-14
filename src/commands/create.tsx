@@ -8,7 +8,7 @@ import { SelectConfirm } from "../components/select-confirm.tsx";
 import { StepList } from "../components/step-indicator.tsx";
 import { WizardSummary } from "../components/wizard-summary.tsx";
 import { ensureGlobalDirs, loadGlobalConfig } from "../config/global.ts";
-import type { SiteConfig } from "../config/schema.ts";
+import type { PhpVersion, SiteConfig } from "../config/schema.ts";
 import { dbEngines, phpVersions } from "../config/schema.ts";
 import { saveSiteConfig, siteExists } from "../config/site.ts";
 import { generateComposeYaml } from "../docker/compose.ts";
@@ -561,7 +561,7 @@ export default function Create({ options: opts, args: [name] }: Props) {
 						options={phpOptions}
 						defaultValue="8.2"
 						onSubmit={(value) => {
-							setPhp(value);
+							setPhp(value as PhpVersion);
 							setWizardStep("db");
 						}}
 					/>
